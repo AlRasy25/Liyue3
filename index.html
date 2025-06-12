@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Liyue</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liyue - Genshin Impact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #8c2f1b;
+            --secondary: #d4a017;
+            --accent: #d4a017;
+            --light: #f0f8ff;
+            --dark: #1a1a1a;
+            --geo: #d4a017;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #3d2119 100%);
+            color: var(--light);
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            height: 100vh;
+            background: 
+                linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.9)),
+                url('https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/08/1023623/b7eb8e50d25424aa8f0c6d8bbc04e116_237366316328937394.png?x-oss-process=image%2Fformat%2Cwebp');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .logo {
+            position: absolute;
+            top: 7px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 5px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .header-content {
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .title {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(212, 160, 23, 0.7);
+            background: linear-gradient(to right, #d4a017, #8c2f1b, #3d2119);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: var(--light);
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #d4a017, #8c2f1b);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(140, 47, 27, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(140, 47, 27, 0.6);
+        }
+
+        .lantern-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .lantern {
+            position: absolute;
+            background: rgba(212, 160, 23, 0.3);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(140, 47, 27, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: flex-end; /* Menggeser konten ke kanan */
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #d4a017;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: #e5d9c8;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+            border: 2px solid rgba(140, 47, 27, 0.3);
+        }
+
+        .about-image img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Characters Section */
+        .characters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .character-card {
+            background: rgba(140, 47, 27, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border: 1px solid rgba(212, 160, 23, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s;
+        }
+
+        .character-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .character-image {
+            height: 650px;
+            overflow: hidden;
+        }
+
+        .character-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .character-card:hover .character-image img {
+            transform: scale(1.1);
+        }
+
+        .character-info {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .character-name {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .character-role {
+            font-size: 1.1rem;
+            color: #d4a017;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .character-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #e5d9c8;
+        }
+
+        /* Story Section */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+            width: calc(50% - 40px);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: calc(50% + 40px);
+        }
+
+        .timeline-content {
+            background: rgba(140, 47, 27, 0.3);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 50px 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(212, 160, 23, 0.3);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -50px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -50px;
+        }
+
+        .timeline-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .timeline-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e5d9c8;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(140, 47, 27, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            border: 1px solid rgba(212, 160, 23, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .feature-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e5d9c8;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 26, 26, 0.95);
+            padding: 50px 0 20px;
+            border-top: 1px solid rgba(140, 47, 27, 0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .footer-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e5d9c8;
+            max-width: 350px;
+        }
+
+        .footer-links {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #e5d9c8;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(212, 160, 23, 0.2);
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(140, 47, 27, 0.3);
+            color: #d4a017;
+            font-size: 1rem;
+        }
+
+        /* Animations */
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 30px rgba(212, 160, 23, 0.9), 0 0 40px rgba(212, 160, 23, 0.6);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes popUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            70% {
+                transform: translateY(-5px) scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .title {
+                font-size: 4rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 70px;
+            }
+            
+            .timeline-content::before {
+                left: -30px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .section-title {
+                font-size: 2.3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Penambahan untuk meningkatkan keterbacaan teks */
+        .timeline-title, .timeline-desc, .feature-title, .feature-desc {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/08/1023623/5968bc73f375ee1e3704302541c83c7f_719176161970170275.png?x-oss-process=image%2Fformat%2Cwebp" alt="Genshin Impact Logo" alt="Genshin Impact Logo">
+            <div class="logo-text">Liyue</div>
+        </div>
+        
+        <div class="lantern-animation" id="lantern-animation"></div>
+        
+        <div class="header-content">
+            <h1 class="title">Liyue</h1>
+            <p class="subtitle">Pelabuhan Batu dan Kontrak</p>
+            <a href="#about" class="btn">Jelajahi Sekarang</a>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/08/1023623/5968bc73f375ee1e3704302541c83c7f_719176161970170275.png?x-oss-process=image%2Fformat%2Cwebp" alt="Genshin Impact Logo" height="30">
+                <div class="logo-text">Liyue</div>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#about">Kota</a>
+                <a href="#characters">Karakter</a>
+                <a href="#story">Kisah</a>
+                <a href="#features">Tempat Penting</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Pelabuhan Liyue</h2>
+                <p class="section-subtitle">Liyue adalah salah satu dari tujuh negara di Teyvat. Kota ini menyembah Dewa Geo, Morax, dan dikenal sebagai pusat perdagangan dan kekayaan.</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Kota Batu dan Kontrak</h3>
+                    <p>Liyue adalah negara kontrak yang terletak di timur benua Teyvat. Kota ini terinspirasi oleh budaya Tiongkok kuno, dengan arsitektur megah, pelabuhan sibuk, dan pegunungan menjulang.</p>
+                    <p>Sebagai pusat perdagangan Teyvat, Liyue menawarkan pemandangan pelabuhan yang ramai, pegunungan batu yang megah, dan pedesaan yang damai. Kota ini dipimpin oleh Qixing Liyue yang mengatur segala urusan ekonomi dan pemerintahan.</p>
+                    <p>Meskipun Rex Lapis (Morax) baru saja "meninggalkan" dunia fana, warisan dan pengaruhnya masih terasa di setiap sudut kota. Prinsip kontrak dan keadilan menjadi fondasi masyarakat Liyue.</p>
+                </div>
+                
+                <div class="about-image">
+                    <img src="https://act-webstatic.hoyoverse.com/upload/contentweb/2022/03/10/c88c76965b252b137a8f3a0e4b53cfee_1276101398488248949.png" alt="Kota Liyue">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Characters Section -->
+    <section id="characters" style="background: rgba(26, 26, 26, 0.5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Karakter Liyue</h2>
+                <p class="section-subtitle">Kenali para karakter ikonik yang berasal dari kota batu dan kontrak ini</p>
+            </div>
+            
+            <div class="characters-container">
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/01/25750596/0bbd1bcefa05c9380c8991311614310d_4075130111672775705.gif" alt="Zhongli">
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">Zhongli</h3>
+                        <p class="character-role">Archon Geo / Konsultan</p>
+                        <p class="character-desc">Sebagai Archon Geo yang telah hidup selama ribuan tahun, Zhongli kini bekerja sebagai konsultan di Rumah Duka Wangsheng. Pengetahuannya tentang sejarah Liyue tak tertandingi.</p>
+                    </div>
+                </div>
+                
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/01/25750596/45e8896c7a17c95a0072c06a731d29df_4140956034990168137.gif" alt="Hu Tao">
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">Hu Tao My Istri Gweh🥰</h3>
+                        <p class="character-role">Direktur Rumah Duka Wangsheng</p>
+                        <p class="character-desc">Hu Tao adalah direktur muda Rumah Duka Wangsheng yang enerjik dan unik. Dengan kepribadiannya yang ceria, dia mengelola bisnis pemakaman dengan profesional.</p>
+                    </div>
+                </div>
+                
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2022/12/15/25750596/74e1ee531934ff98724786ed77fe2fdd_1814826660284760163.gif" alt="Ganyu">
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">Ganyu</h3>
+                        <p class="character-role">Sekretaris Qixing Liyue</p>
+                        <p class="character-desc">Ganyu adalah sekretaris Qixing Liyue dan keturunan Adeptus. Selama berabad-abad, dia telah bekerja tanpa lelah untuk menjaga keseimbangan antara manusia dan dewa di Liyue.</p>
+                    </div>
+                </div>
+                
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/01/25750596/5ec71e97e4999cca2c64092f7bfa513f_9087082234882917368.gif" alt="Xiao">
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">Xiao</h3>
+                        <p class="character-role">Pembasmi Iblis Yaksha</p>
+                        <p class="character-desc">Xiao adalah Adeptus dan Yaksha yang bertugas membasmi sisa-sisa kejahatan kuno di Liyue. Meski tampak dingin, dia memiliki rasa tanggung jawab yang kuat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Story Section -->
+    <section id="story">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kisah Liyue</h2>
+                <p class="section-subtitle">Perjalanan sejarah kota batu dan kontrak dari masa ke masa</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/12/10/140615443/5d7ba312dadb3346ea74692d25d818ba_6698997031814844739.png?x-oss-process=image%2Fformat%2Cwebp'); background-size: cover; background-position: center;">
+                        <h3 class="timeline-title">Zaman Archon Perang</h3>
+                        <p class="timeline-desc">Di masa kuno, Liyue dipimpin oleh Archon Geo, Morax, yang berpartisipasi dalam Perang Archon. Dengan kekuatan Geo, Morax membentuk pegunungan dan menciptakan Mora, mata uang Teyvat.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/12/10/140615443/7372a2d1b47769b64d0e87bd21a867a7_6992418847095542132.png?x-oss-process=image%2Fformat%2Cwebp'); background-size: cover; background-position: center;">
+                        <h3 class="timeline-title">Perjanjian dengan Adepti</h3>
+                        <p class="timeline-desc">Morax membuat perjanjian dengan Adepti dan Yaksha untuk melindungi Liyue dari ancaman. Mereka membangun kota dan mengusir roh-roh jahat yang mengganggu perdamaian Liyue.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://www.gematsu.com/wp-content/uploads/2020/01/Genshin-Impact_2020_01-06-20_002-768x432.png'); background-size: cover; background-position: center;">
+                        <h3 class="timeline-title">Pendirian Pelabuhan</h3>
+                        <p class="timeline-desc">Morax mendirikan Pelabuhan Liyue sebagai pusat perdagangan. Kota ini berkembang pesat berkat lokasinya yang strategis dan kekayaan mineral dari pegunungan sekitarnya.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://static0.gamerantimages.com/wordpress/wp-content/uploads/2021/04/ningguang-with-jade-chamber-Croppededit.jpg'); background-size: cover; background-position: center;">
+                        <h3 class="timeline-title">Era Qixing Liyue</h3>
+                        <p class="timeline-desc">Morax menyerahkan pemerintahan kepada manusia, membentuk Qixing Liyue yang terdiri dari para pengusaha dan pemimpin terkemuka. Sistem ini memungkinkan Liyue berkembang sebagai pusat ekonomi.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_rZXOk1AS7Teu3tSMW14dzywnCn0ZBe-uaw&s'); background-size: cover; background-position: center;">
+                        <h3 class="timeline-title">Ritus Descension</h3>
+                        <p class="timeline-desc">Setiap tahun, Rex Lapis turun ke dunia fana untuk memberikan petunjuk selama Ritus Descension. Namun, dalam ritus terakhir, Rex Lapis "terbunuh" dan memulai era baru Liyue tanpa Archon.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section id="features" style="background: rgba(26, 26, 26, 0.5);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tempat Penting</h2>
+                <p class="section-subtitle">Jelajahi lokasi ikonik di seluruh wilayah Liyue</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://upload-os-bbs.hoyolab.com/upload/2020/10/06/34555025/79cb1364b12a224fd599ad561cf14769_5374379000963568313.png?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_70'); background-size: cover; background-position: center;">
+                    <div class="feature-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="feature-title">Yujing Terrace</h3>
+                    <p class="feature-desc">Pusat pemerintahan Liyue tempat Qixing menjalankan tugas mereka. Terletak di ketinggian dengan pemandangan pelabuhan yang menakjubkan dan patung Rex Lapis.</p>
+                </div>
+                
+                <div class="feature-card" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://www.pcinvasion.com/wp-content/uploads/2020/10/Genshin-Impact-Qingyun-Peak-Divine-Birds-puzzle-.jpg'); background-size: cover; background-position: center;">
+                    <div class="feature-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3 class="feature-title">Qingyun Peak</h3>
+                    <p class="feature-desc">Puncak tertinggi di Liyue yang diyakini sebagai tempat pertemuan para Adeptus. Di puncaknya terdapat platform mengambang yang hanya bisa diakses dengan teka-teki.</p>
+                </div>
+                
+                <div class="feature-card" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i0.wp.com/gamingonphone.com/wp-content/uploads/2022/02/genshin-impact-liyue-cover-wallpaper.jpg'); background-size: cover; background-position: center;">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3 class="feature-title">Chihu Rock</h3>
+                    <p class="feature-desc">Area pasar dan pelabuhan di Liyue Harbor yang ramai. Tempat ini penuh dengan toko, restoran, dan pedagang yang menjual berbagai barang dari seluruh Teyvat.</p>
+                </div>
+                
+                <div class="feature-card" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/04/30/237301566/f5160f512a74267f18b6a658e4f4db36_2936376558921903439.png?x-oss-process=image/format,webp'); background-size: cover; background-position: center;">
+                    <div class="feature-icon">
+                        <i class="fas fa-dungeon"></i>
+                    </div>
+                    <h3 class="feature-title">Domain Guyun</h3>
+                    <p class="feature-desc">Gugusan pulau berbatu yang terbentuk dari tombak Morax saat mengalahkan musuh-musuhnya. Sekarang menjadi tempat Domain dan reruntuhan kuno.</p>
+                </div>
+                
+                <div class="feature-card" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://upload-os-bbs.hoyolab.com/upload/2022/07/11/176847337/e5a66cc9efb3648557245abcdd270a56_3631694721268028353.jpg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_70'); background-size: cover; background-position: center;">
+                    <div class="feature-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3 class="feature-title">Luhua Pool</h3>
+                    <p class="feature-desc">Kolam air jernih dengan formasi batu yang indah dan air terjun kecil. Dikelilingi oleh bunga-bunga liar dan suasana yang damai.</p>
+                </div>
+                
+                <div class="feature-card" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://upload-os-bbs.hoyolab.com/upload/2023/05/17/16005089/d2ce3e7645b50ecad6df6ebc348ebe26_2004571229608823571.jpg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_70'); background-size: cover; background-position: center;">
+                    <div class="feature-icon">
+                        <i class="fas fa-torii-gate"></i>
+                    </div>
+                    <h3 class="feature-title">Wangshu Inn</h3>
+                    <p class="feature-desc">Penginapan besar yang dibangun di atas pohon raksasa. Menjadi tempat peristirahatan penting bagi para pelancong dan tempat tinggal Xiao, Sang Yaksha.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="footer-logo-text">Liyue</div>
+                    <p class="footer-desc">Pelabuhan Batu dan Kontrak. Temukan kekayaan, sejarah, dan keindahan di tanah yang dipersembahkan untuk Dewa Geo, Morax.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">Eksplorasi</h3>
+                    <ul>
+                        <li><a href="#">Peta Liyue</a></li>
+                        <li><a href="#">Karakter</a></li>
+                        <li><a href="#">Quest</a></li>
+                        <li><a href="#">Musik</a></li>
+                        <li><a href="#">Wallpaper</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">Sumber Daya</h3>
+                    <ul>
+                        <li><a href="#">Database</a></li>
+                        <li><a href="#">Build Karakter</a></li>
+                        <li><a href="#">Kalkulator</a></li>
+                        <li><a href="#">Event</a></li>
+                        <li><a href="#">Berita</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 Muhammad Ruli Al Rasyid. Dibuat guna memenuhi tugas mata kuliah Data Raya dan Pemrograman.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Lantern animation
+        function createLanterns() {
+            const container = document.getElementById('lantern-animation');
+            const lanternCount = 20;
+            
+            for (let i = 0; i < lanternCount; i++) {
+                const lantern = document.createElement('div');
+                lantern.classList.add('lantern');
+                
+                // Random size
+                const size = Math.random() * 15 + 10;
+                lantern.style.width = `${size}px`;
+                lantern.style.height = `${size}px`;
+                
+                // Random position
+                lantern.style.left = `${Math.random() * 100}%`;
+                lantern.style.bottom = `-${size}px`;
+                
+                // Random opacity
+                lantern.style.opacity = Math.random() * 0.7 + 0.3;
+                
+                // Random animation duration
+                const duration = Math.random() * 20 + 15;
+                lantern.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                const delay = Math.random() * 10;
+                lantern.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(lantern);
+            }
+        }
+        
+        // Navigation effect on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.backgroundColor = 'rgba(26, 26, 26, 0.95)';
+                nav.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                nav.style.backgroundColor = 'rgba(26, 26, 26, 0.9)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Initialize on load
+        window.addEventListener('load', function() {
+            createLanterns();
+            
+            // Initialize section observer
+            initSectionObserver();
+        });
+        
+        // Section Observer for pop-up effect
+        function initSectionObserver() {
+            // Configure the observer options
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
+            
+            // Create the observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add 'visible' class to trigger animation
+                        entry.target.classList.add('visible');
+                        
+                        // For sections with child elements (like character cards)
+                        if (entry.target.classList.contains('characters-container')) {
+                            const cards = entry.target.querySelectorAll('.character-card');
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('visible');
+                                }, index * 200); // Staggered delay
+                            });
+                        }
+                        
+                        if (entry.target.classList.contains('timeline')) {
+                            const items = entry.target.querySelectorAll('.timeline-item');
+                            items.forEach((item, index) => {
+                                setTimeout(() => {
+                                    item.classList.add('visible');
+                                }, index * 300); // Staggered delay
+                            });
+                        }
+                        
+                        if (entry.target.classList.contains('features-grid')) {
+                            const features = entry.target.querySelectorAll('.feature-card');
+                            features.forEach((feature, index) => {
+                                setTimeout(() => {
+                                    feature.classList.add('visible');
+                                }, index * 150); // Staggered delay
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all sections
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Also observe containers with child elements
+            document.querySelectorAll('.characters-container, .timeline, .features-grid').forEach(container => {
+                observer.observe(container);
+            });
+        }
+    </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
