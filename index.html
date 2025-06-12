@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Liyue</title>
-  
 
-</head>
-<body>
-<!-- partial:index.partial.html -->
+
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -299,6 +291,8 @@
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s;
+            perspective: 1000px;
+            height: 750px; /* Diperbesar sedikit untuk menampung flip card */
         }
 
         .character-card.visible {
@@ -306,19 +300,51 @@
             transform: translateY(0);
         }
 
+        .character-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .character-card.flipped .character-inner {
+            transform: rotateY(180deg);
+        }
+
+        .character-front, .character-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .character-back {
+            transform: rotateY(180deg);
+            background: rgba(70, 25, 15, 0.8);
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
         .character-image {
-            height: 650px;
+            height: 550px;
             overflow: hidden;
+            position: relative;
         }
 
         .character-image img {
             width: 100%;
-            height: 100%;
+            height: 150%;
             object-fit: cover;
             transition: transform 0.5s;
         }
 
-        .character-card:hover .character-image img {
+        .character-card:not(.flipped):hover .character-image img {
             transform: scale(1.1);
         }
 
@@ -345,6 +371,51 @@
             font-size: 1rem;
             line-height: 1.6;
             color: #e5d9c8;
+        }
+
+        .weapon-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .weapon-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .weapon-name {
+            font-size: 1.6rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .weapon-type {
+            font-size: 1.1rem;
+            color: #d4a017;
+            margin-bottom: 15px;
+        }
+
+        .weapon-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #e5d9c8;
+            max-width: 90%;
+        }
+
+        .flip-instruction {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #d4a017;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         /* Story Section */
@@ -629,6 +700,10 @@
             .timeline-content::before {
                 left: -30px !important;
             }
+            
+            .characters-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
         }
 
         @media (max-width: 768px) {
@@ -650,6 +725,24 @@
             
             .mobile-menu-btn {
                 display: block;
+            }
+            
+            .character-card {
+                height: 700px;
+            }
+            
+            .character-image {
+                height: 600px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character-card {
+                height: 650px;
+            }
+            
+            .character-image {
+                height: 550px;
             }
         }
 
@@ -726,46 +819,154 @@
             
             <div class="characters-container">
                 <div class="character-card">
-                    <div class="character-image">
-                        <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/01/25750596/0bbd1bcefa05c9380c8991311614310d_4075130111672775705.gif" alt="Zhongli">
-                    </div>
-                    <div class="character-info">
-                        <h3 class="character-name">Zhongli</h3>
-                        <p class="character-role">Archon Geo / Konsultan</p>
-                        <p class="character-desc">Sebagai Archon Geo yang telah hidup selama ribuan tahun, Zhongli kini bekerja sebagai konsultan di Rumah Duka Wangsheng. Pengetahuannya tentang sejarah Liyue tak tertandingi.</p>
-                    </div>
-                </div>
-                
-                <div class="character-card">
-                    <div class="character-image">
-                        <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/01/25750596/45e8896c7a17c95a0072c06a731d29df_4140956034990168137.gif" alt="Hu Tao">
-                    </div>
-                    <div class="character-info">
-                        <h3 class="character-name">Hu Tao My Istri Gweh🥰</h3>
-                        <p class="character-role">Direktur Rumah Duka Wangsheng</p>
-                        <p class="character-desc">Hu Tao adalah direktur muda Rumah Duka Wangsheng yang enerjik dan unik. Dengan kepribadiannya yang ceria, dia mengelola bisnis pemakaman dengan profesional.</p>
-                    </div>
-                </div>
-                
-                <div class="character-card">
-                    <div class="character-image">
-                        <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2022/12/15/25750596/74e1ee531934ff98724786ed77fe2fdd_1814826660284760163.gif" alt="Ganyu">
-                    </div>
-                    <div class="character-info">
-                        <h3 class="character-name">Ganyu</h3>
-                        <p class="character-role">Sekretaris Qixing Liyue</p>
-                        <p class="character-desc">Ganyu adalah sekretaris Qixing Liyue dan keturunan Adeptus. Selama berabad-abad, dia telah bekerja tanpa lelah untuk menjaga keseimbangan antara manusia dan dewa di Liyue.</p>
+                    <div class="character-inner">
+                        <div class="character-front">
+                            <div class="character-image">
+                                <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/01/25750596/0bbd1bcefa05c9380c8991311614310d_4075130111672775705.gif" alt="Zhongli">
+                            </div>
+                            <div class="character-info">
+                                <h3 class="character-name">Zhongli</h3>
+                                <p class="character-role">Archon Geo / Konsultan</p>
+                                <p class="character-desc">Sebagai Archon Geo yang telah hidup selama ribuan tahun, Zhongli kini bekerja sebagai konsultan di Rumah Duka Wangsheng. Pengetahuannya tentang sejarah Liyue tak tertandingi.</p>
+                            </div>
+                            <div class="flip-instruction">Klik untuk melihat senjata</div>
+                        </div>
+                        <div class="character-back">
+                            <div class="weapon-image">
+                                <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/02/15595270/af33a948f95395773d81685e02f97d5f_4538799296148885490.gif" alt="Vortex Vanquisher">
+                            </div>
+                            <h3 class="weapon-name">Vortex Vanquisher</h3>
+                            <p class="weapon-type">Senjata Polearm - 5★</p>
+                            <p class="weapon-desc">Tombak kuno yang pernah digunakan untuk melawan iblis kuno. Terbuat dari batu hitam yang tidak dikenal, tombak ini memiliki kekuatan untuk menekan kejahatan.</p>
+                            <div class="flip-instruction">Klik untuk kembali</div>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="character-card">
-                    <div class="character-image">
-                        <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/01/25750596/5ec71e97e4999cca2c64092f7bfa513f_9087082234882917368.gif" alt="Xiao">
+                    <div class="character-inner">
+                        <div class="character-front">
+                            <div class="character-image">
+                                <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/01/25750596/45e8896c7a17c95a0072c06a731d29df_4140956034990168137.gif" alt="Hu Tao">
+                            </div>
+                            <div class="character-info">
+                                <h3 class="character-name">Hu Tao My Istri Gweh🥰</h3>
+                                <p class="character-role">Direktur Rumah Duka Wangsheng</p>
+                                <p class="character-desc">Hu Tao adalah direktur muda Rumah Duka Wangsheng yang enerjik dan unik. Dengan kepribadiannya yang ceria, dia mengelola bisnis pemakaman dengan profesional.</p>
+                            </div>
+                            <div class="flip-instruction">Klik untuk melihat senjata</div>
+                        </div>
+                        <div class="character-back">
+                            <div class="weapon-image">
+                                <img src="https://media.tenor.com/YJEl3rdMHpMAAAAM/genshin-impact.gif" alt="Staff of Homa">
+                            </div>
+                            <h3 class="weapon-name">Staff of Homa</h3>
+                            <p class="weapon-type">Senjata Polearm - 5★</p>
+                            <p class="weapon-desc">Tombak api yang bersinar dengan nyala yang hangat. Tombak ini dapat meningkatkan kekuatan pemakainya dengan mengorbankan HP mereka sendiri.</p>
+                            <div class="flip-instruction">Klik untuk kembali</div>
+                        </div>
                     </div>
-                    <div class="character-info">
-                        <h3 class="character-name">Xiao</h3>
-                        <p class="character-role">Pembasmi Iblis Yaksha</p>
-                        <p class="character-desc">Xiao adalah Adeptus dan Yaksha yang bertugas membasmi sisa-sisa kejahatan kuno di Liyue. Meski tampak dingin, dia memiliki rasa tanggung jawab yang kuat.</p>
+                </div>
+                
+                <div class="character-card">
+                    <div class="character-inner">
+                        <div class="character-front">
+                            <div class="character-image">
+                                <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2022/12/15/25750596/74e1ee531934ff98724786ed77fe2fdd_1814826660284760163.gif" alt="Ganyu">
+                            </div>
+                            <div class="character-info">
+                                <h3 class="character-name">Ganyu</h3>
+                                <p class="character-role">Sekretaris Qixing Liyue</p>
+                                <p class="character-desc">Ganyu adalah sekretaris Qixing Liyue dan keturunan Adeptus. Selama berabad-abad, dia telah bekerja tanpa lelah untuk menjaga keseimbangan antara manusia dan dewa di Liyue.</p>
+                            </div>
+                            <div class="flip-instruction">Klik untuk melihat senjata</div>
+                        </div>
+                        <div class="character-back">
+                            <div class="weapon-image">
+                                <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/02/15595270/5025588c0ef438321f9d56c92e6b741e_5911057156398055549.gif" alt="Amos' Bow">
+                            </div>
+                            <h3 class="weapon-name">Amos' Bow</h3>
+                            <p class="weapon-type">Senjata Bow - 5★</p>
+                            <p class="weapon-desc">Busur kuno dengan kekuatan luar biasa. Semakin jauh anak panah melesat, semakin besar kerusakan yang ditimbulkannya.</p>
+                            <div class="flip-instruction">Klik untuk kembali</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="character-card">
+                    <div class="character-inner">
+                        <div class="character-front">
+                            <div class="character-image">
+                                <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/01/25750596/5ec71e97e4999cca2c64092f7bfa513f_9087082234882917368.gif" alt="Xiao">
+                            </div>
+                            <div class="character-info">
+                                <h3 class="character-name">Xiao</h3>
+                                <p class="character-role">Pembasmi Iblis Yaksha</p>
+                                <p class="character-desc">Xiao adalah Adeptus dan Yaksha yang bertugas membasmi sisa-sisa kejahatan kuno di Liyue. Meski tampak dingin, dia memiliki rasa tanggung jawab yang kuat.</p>
+                            </div>
+                            <div class="flip-instruction">Klik untuk melihat senjata</div>
+                        </div>
+                        <div class="character-back">
+                            <div class="weapon-image">
+                                <img src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/01/01/15595270/ee2ee5b35a7934df4ff42fb2fe0ac9fc_5787610937061628423.gif" alt="Primordial Jade Winged-Spear">
+                            </div>
+                            <h3 class="weapon-name">Primordial Jade Winged-Spear</h3>
+                            <p class="weapon-type">Senjata Polearm - 5★</p>
+                            <p class="weapon-desc">Tombak giok yang sangat indah dengan kekuatan luar biasa. Tombak ini memberikan peningkatan yang signifikan pada serangan pemakainya.</p>
+                            <div class="flip-instruction">Klik untuk kembali</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Karakter baru Keqing -->
+                <div class="character-card">
+                    <div class="character-inner">
+                        <div class="character-front">
+                            <div class="character-image">
+                                <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2022/12/15/25750596/92e9ed6a0a0908f297786f75ff87ed05_1378307281869389053.gif" alt="Keqing">
+                            </div>
+                            <div class="character-info">
+                                <h3 class="character-name">Keqing</h3>
+                                <p class="character-role">Yuheng of the Qixing</p>
+                                <p class="character-desc">Seorang anggota Qixing Liyue yang penuh semangat dan pekerja keras. Dia percaya pada kekuatan manusia dan menolak campur tangan dewa dalam urusan manusia.</p>
+                            </div>
+                            <div class="flip-instruction">Klik untuk melihat senjata</div>
+                        </div>
+                        <div class="character-back">
+                            <div class="weapon-image">
+                                <img src="https://wiki.hoyolab.com/_ipx/f_webp/https://bbs.hoyolab.com/hoyowiki/picture/weapon/%25E7%25A3%2590%25E5%25B2%25A9%25E7%25BB%2593%25E7%25BB%25BF.png" alt="Primordial Jade Cutter">
+                            </div>
+                            <h3 class="weapon-name">Primordial Jade Cutter</h3>
+                            <p class="weapon-type">Senjata Sword - 5★</p>
+                            <p class="weapon-desc">Pedang giok dengan bilauan cahaya yang memukau. Meningkatkan HP dan memberikan bonus serangan berdasarkan HP maksimum pemakainya.</p>
+                            <div class="flip-instruction">Klik untuk kembali</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Karakter baru Shenhe -->
+                <div class="character-card">
+                    <div class="character-inner">
+                        <div class="character-front">
+                            <div class="character-image">
+                                <img src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/01/25750596/239f174b659f428962c1ee30a555522f_8373160319655226546.gif" alt="Shenhe">
+                            </div>
+                            <div class="character-info">
+                                <h3 class="character-name">Shenhe</h3>
+                                <p class="character-role">Pendeta Pengembara</p>
+                                <p class="character-desc">Seorang pendeta dengan aura dingin yang misterius. Dia memiliki kemampuan untuk mengendalikan es dan telah dilatih oleh Adeptus sejak kecil.</p>
+                            </div>
+                            <div class="flip-instruction">Klik untuk melihat senjata</div>
+                        </div>
+                        <div class="character-back">
+                            <div class="weapon-image">
+                                <img src="https://wiki.hoyolab.com/_ipx/f_webp/https://bbs.hoyolab.com/hoyowiki/picture/weapon/%25E6%2581%25AF%25E7%2581%25BE.png" alt="Calamity Queller">
+                            </div>
+                            <h3 class="weapon-name">Calamity Queller</h3>
+                            <p class="weapon-type">Senjata Polearm - 5★</p>
+                            <p class="weapon-desc">Tombak dengan kekuatan es yang sangat kuat. Memberikan bonus kerusakan elemen dan meningkatkan serangan saat pemakainya tidak berada di medan perang.</p>
+                            <div class="flip-instruction">Klik untuk kembali</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -984,6 +1185,13 @@
             });
         });
         
+        // Flip card functionality
+        document.querySelectorAll('.character-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.toggle('flipped');
+            });
+        });
+        
         // Initialize on load
         window.addEventListener('load', function() {
             createLanterns();
@@ -1050,9 +1258,5 @@
             });
         }
     </script>
-</body>
-</html>
-<!-- partial -->
-  
 </body>
 </html>
